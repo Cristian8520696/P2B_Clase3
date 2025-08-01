@@ -17,15 +17,14 @@ public class PedidoService {
         this.contadorPedidos = 1;
     }
 
-    // ERROR 11: Inicialización incorrecta de variables
+    // ERROR 11: Inicialización incorrecta de variables(check)
     public Pedido crearPedido(Cliente cliente) {
         Pedido pedido = new Pedido(contadorPedidos, cliente);
-        contadorPedidos--; // Debería incrementar, no decrementar
+        contadorPedidos++; // Debería incrementar, no decrementar
         pedidos.add(pedido);
         return pedido;
     }
 
-    // ERROR 12: Condición mal formulada en bucle
     public boolean agregarProductoAPedido(int pedidoId, int productoId, int cantidad) {
         Pedido pedido = buscarPedidoPorId(pedidoId);
         if (pedido == null) return false;
@@ -33,17 +32,16 @@ public class PedidoService {
         Producto producto = inventarioService.buscarProductoPorId(productoId);
         if (producto == null) return false;
 
-        // Bucle innecesario con condición incorrecta
-        for (int i = 0; i != cantidad; i++) { // Debería ser < en lugar de !=
-            if (inventarioService.venderProducto(productoId, 1)) {
-                pedido.agregarProducto(producto);
-                //
-            } else {
-                return false;
-            }
+        if (inventarioService.venderProducto(productoId, cantidad)) {
+            Producto copia = new Producto(producto.getId(), producto.getNombre(),
+                    producto.getPrecio(), producto.getStock());
+            copia.setCantidad(cantidad);
+            pedido.agregarProducto(copia);
+            return true;
         }
-        return true;
+        return false;
     }
+
 
     private Pedido buscarPedidoPorId(int id) {
         for (Pedido pedido : pedidos) {
