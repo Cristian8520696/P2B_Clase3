@@ -3,7 +3,7 @@
 
 CREATE TABLE IF NOT EXISTS productos (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    nombre TEXT NOT NULL,
+    nombre TEXT NOT NULL UNIQUE,
     precio REAL NOT NULL,
     stock INTEGER NOT NULL DEFAULT 0
 );
@@ -18,9 +18,9 @@ CREATE TABLE IF NOT EXISTS clientes (
 CREATE TABLE IF NOT EXISTS pedidos (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     cliente_id INTEGER NOT NULL,
-    fecha TEXT NOT NULL,
     total REAL NOT NULL DEFAULT 0.0,
     estado TEXT DEFAULT 'PENDIENTE',
+    fecha DATETIME NOT NULL DEFAULT (datetime('now', 'localtime')),
     FOREIGN KEY (cliente_id) REFERENCES clientes(id)
 );
 

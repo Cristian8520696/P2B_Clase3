@@ -12,6 +12,7 @@ public class Pedido {
     private List<Producto> productos;
     private LocalDateTime fecha;
     private double total;
+    private LocalDateTime fechaHora;
 
     public Pedido(int id, Cliente cliente) {
         this.id = id;

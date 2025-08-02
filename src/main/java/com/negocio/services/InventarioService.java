@@ -13,10 +13,23 @@ public class InventarioService {
     }
 
     private void inicializarProductos() {
-        productos.add(new Producto(1, "Hamburguesa", 15.50, 20));
-        productos.add(new Producto(2, "Pizza", 25.00, 15));
-        productos.add(new Producto(3, "Tacos", 8.75, 30));
-        productos.add(new Producto(4, "Refresco", 3.50, 50));
+        agregarProducto(new Producto(1, "Hamburguesa", 15.50, 20));
+        agregarProducto(new Producto(2, "Pizza", 25.00, 15));
+        agregarProducto(new Producto(3, "Tacos", 8.75, 30));
+        agregarProducto(new Producto(4, "Refresco", 3.50, 50));
+        agregarProducto(new Producto(4, "Refresco", 3.50, 50));
+
+    }
+    private void agregarProducto(Producto nuevo) {
+        boolean existe = productos.stream()
+                .anyMatch(p -> p.getNombre().equalsIgnoreCase(nuevo.getNombre()));
+
+        if (!existe) {
+            productos.add(nuevo);
+            System.out.println("Producto agregado: " + nuevo.getNombre());
+        } else {
+            System.out.println("El producto '" + nuevo.getNombre() + "' ya existe y no se agregó.");
+        }
     }
 
     // ERROR 8: Bucle infinito potencial(check)

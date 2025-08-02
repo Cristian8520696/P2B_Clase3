@@ -17,6 +17,7 @@ public class Producto {
         if (precio < 0) throw new IllegalArgumentException("El precio no puede ser negativo.");
         if (stock < 0) throw new IllegalArgumentException("El stock no puede ser negativo.");
 
+
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
@@ -53,6 +54,7 @@ public class Producto {
         if (nombre == null || nombre.trim().isEmpty()) throw new IllegalArgumentException("El nombre no puede estar vacío.");
         this.nombre = nombre;
     }
+
 
     public void setPrecio(double precio) {
         if (precio < 0) throw new IllegalArgumentException("El precio no puede ser negativo.");
